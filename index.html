@@ -1,44 +1,76 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
-<head>
-<title>Cross-Browser QRCode generator for Javascript</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
-<script type="text/javascript" src="jquery.min.js"></script>
-<script type="text/javascript" src="qrcode.js"></script>
-</head>
-<body>
-<input id="text" type="text" value="http://jindo.dev.naver.com/collie" style="width:80%" /><br />
-<div id="qrcode" style="width:100px; height:100px; margin-top:15px;"></div>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <title>Cross-Browser payment QRCode generator for Javascript</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,user-scalable=no"
+    />
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="qrcodepay.min.js"></script>
+  </head>
+  <body>
+    <p>Payment QR code generator for JPYC payment Live Demo</p>
+    <p>
+      see
+      <a href="https://github.com/Nuko973663/qrcodepayjs">readme on github</a>
+    </p>
 
-<script type="text/javascript">
-var qrcode = new QRCode(document.getElementById("qrcode"), {
-	width : 100,
-	height : 100
-});
+    Amount:
+    <input id="amount" type="text" value="100" style="width: 50%" /><br />
+    Destination Address:
+    <input
+      id="dest"
+      type="text"
+      value="0xafd382aCC893127D6fbb197b87453070Fc14D43d"
+      style="width: 50%"
+    /><br />
+    <div
+      id="qrcode"
+      style="width: 300px; height: 300px; margin-top: 15px"
+    ></div>
 
-function makeCode () {		
-	var elText = document.getElementById("text");
-	
-	if (!elText.value) {
-		alert("Input a text");
-		elText.focus();
-		return;
-	}
-	
-	qrcode.makeCode(elText.value);
-}
+    <script type="text/javascript">
+      var qrcode = new QRCodePay(document.getElementById("qrcode"));
 
-makeCode();
+      function makeCode() {
+        var elAmount = document.getElementById("amount");
+        var elDest = document.getElementById("dest");
 
-$("#text").
-	on("blur", function () {
-		makeCode();
-	}).
-	on("keydown", function (e) {
-		if (e.keyCode == 13) {
-			makeCode();
-		}
-	});
-</script>
-</body>
+        if (!elAmount.value || !elDest.value) {
+          alert("Input a text");
+          elText.focus();
+          return;
+        }
+
+        qrcode.makeCodePay(elAmount.value, elDest.value);
+      }
+
+      makeCode();
+
+      $("#amount, #dest")
+        .on("blur", function () {
+          makeCode();
+        })
+        .on("keydown", function (e) {
+          makeCode();
+        });
+    </script>
+
+    or Just
+    <pre><code>&lt;div id=&quot;qrcode&quot;&gt;&lt;/div&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+new QRCodePay(document.getElementById(&quot;qrcode&quot;), &quot;200&quot;,&quot;0xafd382aCC893127D6fbb197b87453070Fc14D43d&quot;);
+&lt;/script&gt;</code></pre>
+
+    <div id="qrcode2"></div>
+    <script type="text/javascript">
+      new QRCodePay(
+        document.getElementById("qrcode2"),
+        "200",
+        "0xafd382aCC893127D6fbb197b87453070Fc14D43d"
+      );
+    </script>
+  </body>
+</html>
