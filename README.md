@@ -27,7 +27,9 @@ var qrcode = new QRCodePay(document.getElementById("qrcode"), {
 	height: 128,
 	colorDark : "#000000",
 	colorLight : "#ffffff",
-	correctLevel : QRCodePay.CorrectLevel.H
+	correctLevel : QRCodePay.CorrectLevel.H,
+	contractAddr: "0x6ae7dfc73e0dde2aa99ac063dcf7e8a63265108c",
+    chainId: "137"
 });
 </script>
 ```
