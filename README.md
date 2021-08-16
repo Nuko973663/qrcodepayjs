@@ -22,7 +22,7 @@ or with some options
 <script type="text/javascript">
 var qrcode = new QRCodePay(document.getElementById("qrcode"), {
 	amount: "1000",
-	dest: "0xafd382aCC893127D6fbb197b87453070Fc14D43d";
+	dest: "0xafd382aCC893127D6fbb197b87453070Fc14D43d",
 	width: 128,
 	height: 128,
 	colorDark : "#000000",
